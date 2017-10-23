@@ -1,0 +1,31 @@
+* {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+.vp-10 {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.vp-20 {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.padding0 {
+	padding: 0 !important;
+}
