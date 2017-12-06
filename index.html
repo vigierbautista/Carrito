@@ -13,46 +13,53 @@
 <header class="container padding0 header">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<figure class="vp-20">
-					<img class="img center" src="images/fender/logo.png" alt="Fender Logo">
+					<img class="img center" src="images/fender/logo-white.png" alt="Fender Logo">
 				</figure>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-10">
 				<h1 class="title">Shopping Cart</h1>
 			</div>
 		</div>
 	</div>
 </header>
-<div class="container" id="content">
+<div class="container-fluid" id="banner-container">
 	<div class="row">
 		<div class="col-md-12">
-			<figure class="vp-20">
-				<img class="img center" src="images/fender/banner.jpg" alt="Custom Shop Banner">
+			<figure>
+				<img id="main-banner" class="img center" src="images/fender/banner3.jpg" alt="Custom Shop Banner">
 			</figure>
 		</div>
 	</div>
+</div>
+<div class="container" id="content">
 	<div class="row">
-		<div class="col-md-2">
-			<div id="sidebar">
-				<h2 class="sub-title">Categorías:</h2>
-				<div id="categories-container"></div>
-			</div>
+		<div class="col-md-12">
+			<h2 class="sub-title center-text">Productos</h2>
+
+			<form id="filters">
+				<label for="categories-container">Filtrar por:</label>
+				<select id="categories-container">
+					<option value="all">Todos</option>
+				</select>
+			</form>
 		</div>
-		<div class="col-md-10">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
 			<div id="main-content">
-				<h2 class="sub-title">Productos:</h2>
 				<div id="products-container"></div>
 			</div>
 		</div>
 	</div>
 
 </div>
-<div id="footer" class="row">
+<div id="footer" class="row-fluid">
 	<footer>
 		<div class="col-md-8 col-md-offset-2">
 			<figure class="vp-20">
-				<img class="img center" src="images/fender/logo.png" alt="Fender Logo">
+				<img class="img center" src="images/fender/footer-logo.png" alt="Fender Logo">
 			</figure>
 			<p class="center-text disclaimer">
 				Sitio realizado por Bautista Vigier para la entrega final de Programación I, dictada por el prof. Federico Noto.
@@ -63,6 +70,10 @@
 	</footer>
 </div>
 
+
+<div id="cart-btn">
+	<i class="glyphicon glyphicon-shopping-cart"></i>
+</div>
 
 <script type="text/javascript" src="js/data.js"></script>
 <script type="text/javascript" src="js/main.js"></script>

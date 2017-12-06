@@ -4,18 +4,15 @@
  */
 function loadCategories(container) {
 
-	var list = document.createElement('ul');
+	var select = container.querySelector('select');
 	for	(var category in data) {
-		var item = document.createElement('li');
-		var link = document.createElement('a');
+		var option = document.createElement('option');
 		var text = document.createTextNode(category);
-		link.appendChild(text);
-		link.classList.add('category');
-		item.appendChild(link);
-		list.appendChild(item);
-		container.appendChild(list);
+		var val = category.substring(0,3);
+		option.setAttribute('value', val.toLowerCase());
+		option.appendChild(text);
+		select.appendChild(option);
 	}
-
 }
 
 /**
@@ -34,9 +31,15 @@ function loadProducts(productsCont) {
 				var product = data[category][productData];
 
 				var col = document.createElement('div');
+				col.classList.add('column');
 				col.classList.add('col-lg-3');
 				col.classList.add('col-md-4');
 				col.classList.add('col-sm-6');
+				var data_value = category.substring(0,3);
+				col.setAttribute('data-cat', data_value.toLowerCase());
+
+				var prodBox = document.createElement('div');
+				prodBox.classList.add('prod-box');
 
 				var img = document.createElement('img');
 				var src = 'images/products/'+ category + '/' + product.img;
@@ -56,9 +59,10 @@ function loadProducts(productsCont) {
 				price.classList.add('product-price');
 				price.classList.add('center-text');
 
-				col.appendChild(img);
-				col.appendChild(title);
-				col.appendChild(price);
+				prodBox.appendChild(img);
+				prodBox.appendChild(title);
+				prodBox.appendChild(price);
+				col.appendChild(prodBox);
 				row.appendChild(col);
 			}
 
@@ -69,14 +73,35 @@ function loadProducts(productsCont) {
 
 }
 
+function applyFilter(filter) {
+	var products = document.querySelectorAll('.column');
+
+	for	(var i = 0; i < products.length; i++) {
+
+		products[i].style.display = 'none';
+
+		if (filter === 'all' || products[i].dataset.cat === filter) {
+			products[i].style.display = 'block';
+		}
+	}
+}
+
 window.addEventListener('DOMContentLoaded', function () {
 
 	/** @type {Element} contenedor de categorías */
-	var categoriesCont = document.querySelector('#categories-container');
+	var categoriesCont = document.getElementById('filters');
 	loadCategories(categoriesCont);
 
-	/** @type {Element} contenedor de categorías */
-	var productsCont = document.querySelector('#products-container');
+	/** @type {Element} contenedor de productos */
+	var productsCont = document.getElementById('products-container');
 	loadProducts(productsCont);
+
+	/** @type {Element} selector de categorías */
+	var categorySelector = document.getElementById('categories-container');
+
+	categorySelector.addEventListener('change', function () {
+		var selected = this.options[this.selectedIndex];
+		applyFilter(selected.value);
+	});
 
 }, false);
