@@ -40,16 +40,36 @@ header.header {
 
 /****** CATEGORIES ******/
 
+#filter-section {
+	margin-bottom: 80px;
+}
+
 #filters {
 	display: inline-block;
-	float: right;
+	position: absolute;
+	right: -35px;
+	background-color: #b4b4b4;
+	padding: 10px 15px;
+	color: black;
+	border-radius: 25px 0 0 25px;
+}
+
+label[for='categories-container'] {
+	color: black;
 }
 
 #categories-container {
 	display: inline-block;
-	margin-bottom: 30px;
 	background-color: transparent;
 	border: none;
+}
+
+#categories-container:hover,
+#categories-container:focus,
+#categories-container:visited,
+#categories-container:active,
+#categories-container {
+	outline: none;
 }
 
 #categories-container option {
@@ -86,10 +106,64 @@ footer .disclaimer {
 .prod-box:hover {
 	cursor: pointer;
 	border-radius: 5px;
-	box-shadow: 2px 1px 5px rgba(0, 0, 0, 0.45);
+	box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.45);
 }
 
 .product-price {
 	font-size: 22px;
 }
+
+.add-btn {
+	display: inline-block;
+	width: 50%;
+	margin: 0 25%;
+	text-align: center;
+	padding: 10px;
+	background-color: #979797;
+	color: black;
+	border-radius: 25px;
+	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+}
+
+.add-btn .glyphicon {
+	color: black;
+	margin-left: 5px;
+
+}
+
+.add-btn:hover {
+	background-color: whitesmoke;
+}
+
+
+/****** CART ******/
+
+#cart-btn {
+	margin-top: 20px;
+	padding: 10px 10px 5px 10px;
+	border-radius: 50%;
+	display: inline-block;
+	border: 2px solid #979797;
+	text-align: center;
+	position: relative;
+}
+
+#cart-btn .glyphicon {
+	font-size: 17px;
+	color: #979797;
+}
+
+#cart-quantity {
+	font-size: 10px;
+	background-color: #979797;
+	color: black;
+	position: absolute;
+	padding: 1px 0;
+	min-width: 18px;
+	border-radius: 50%;
+	right: -3px;
+	bottom: -7px;
+}
+
 
