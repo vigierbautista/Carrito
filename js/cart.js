@@ -1,6 +1,6 @@
 /**
  * Objeto modelo de Cart.
- * @type {{products: Array, add: Cart.add, remove: Cart.remove, clear: Cart.clear, update: Cart.update, total: number}}
+ * @type {{products: {}, total: number, add: Cart.add, remove: Cart.remove, update: Cart.update, clear: Cart.clear}}
  */
 var Cart = {
 	/**
@@ -92,8 +92,8 @@ var Cart = {
 };
 
 /**
- * Objeto modelo de Producto
- * @type {{id: number, name: string, img: string, price: number}}
+ *  Objeto modelo de Producto
+ * @type {{id: number, name: string, img: string, price: number, create: Product.create}}
  */
 var Product = {
 	id: 0,
