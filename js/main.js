@@ -8,8 +8,7 @@ function loadCategories(container) {
 	for	(var category in data) {
 		var option = document.createElement('option');
 		var text = document.createTextNode(category);
-		var val = category.substring(0,3);
-		option.setAttribute('value', val.toLowerCase());
+		option.setAttribute('value', category);
 		option.appendChild(text);
 		select.appendChild(option);
 	}
@@ -36,8 +35,7 @@ function loadProducts(productsCont) {
 				col.classList.add('col-lg-3');
 				col.classList.add('col-md-4');
 				col.classList.add('col-sm-6');
-				var data_value = category.substring(0,3);
-				col.setAttribute('data-cat', data_value.toLowerCase());
+				col.setAttribute('data-cat', category);
 
 				/*** PRODUCT BOX ***/
 				var prodBox = document.createElement('div');
@@ -104,9 +102,81 @@ function applyFilter(filter) {
 	}
 }
 
+
+/**
+ * Crea y Retorna un modelo de ventana modal.
+ * @return {Element}
+ */
+function createModal() {
+
+	var modal = document.createElement('div');
+	modal.classList.add('modalw');
+	var content = document.createElement('div');
+	content.classList.add('modalw-content');
+	var header = document.createElement('div');
+	header.classList.add('modalw-header');
+	var title = document.createElement('h3');
+	title.classList.add('modalw-title');
+	var close = document.createElement('button');
+	close.classList.add('modalw-close');
+	var closeIcon = document.createElement('i');
+	closeIcon.classList.add('glyphicon', 'glyphicon-remove');
+	var body = document.createElement('div');
+	body.classList.add('modalw-body');
+
+	modal.appendChild(content);
+	content.appendChild(header);
+	content.appendChild(body);
+	header.appendChild(title);
+	header.appendChild(close);
+	close.appendChild(closeIcon);
+
+	return modal;
+}
+
+function showOffer(category) {
+
+	// Buscamos la categoría y el producto
+	var products = data[category];
+	for	(var i = 0; i > products.length; i++) {
+		if (products[i].sale) {
+			var product = products[i];
+		}
+	}
+
+	// Obtenemos los elementos del modal base.
+	var modal = createModal();
+	var content = modal.querySelector('.modalw-body');
+	var title = modal.querySelector('modalw-title');
+	var body = modal.querySelector('modalw-body');
+
+	// Creamos los elementos de la oferta.
+	var titleText = document.createTextNode('Oferta Especial!');
+	var cont = document.createElement('div');
+	cont.classList.add('container');
+	var row = document.createElement('div');
+	row.classList.add('row');
+	var col1 = document.createElement('div');
+	col1.classList.add('col-md-4');
+	var col2= document.createElement('div');
+	col2.classList.add('col-md-8');
+	var image = document.createElement('img');
+	image.classList.add('img', 'center');
+	var src = 'images/products/'+ category + '/' + product.img;
+	image.setAttribute('src', src);
+	var prodName = document.createElement('h4');
+	prodName.classList.add('prod-name');
+	var prodPrice = document.createElement('p');
+	prodPrice.classList.add('prod-name');
+
+
+
+	modal.style.display = 'block';
+}
+
 window.addEventListener('DOMContentLoaded', function () {
 
-	/************** LOAD CONTENT ********************************/
+	/************** LOAD CONTENT *********************************/
 
 	/** @type {Element} contenedor de categorías */
 	var categoriesCont = document.getElementById('filters');
@@ -126,21 +196,34 @@ window.addEventListener('DOMContentLoaded', function () {
 	categorySelector.addEventListener('change', function () {
 		var selected = this.options[this.selectedIndex];
 		applyFilter(selected.value);
+		showOffer(selected.value);
+
 	}, false);
+
+
+
+	/************** MODAL BEHAVIOUR ******************************/
+
+
 
 
 
 
 	/************** PRODUCTS BEHAVIOUR ***************************/
 
-
+	/** @type {Object} botones de agregar al carrito */
 	var addProductBtn = document.querySelectorAll('.add-btn');
 	for (var i = 0; i < addProductBtn.length; i++) {
 		addProductBtn[i].addEventListener('click', function () {
+			// Creamos el producto.
 			var prodId = this.dataset.product;
 			var newProd = Product.create(prodId);
+			// Agregamos el producto al carrito.
 			Cart.add(newProd);
-			console.log(Cart.products);
+			// Actualizamos la cantidad de productos en el icono del carrito.
+			cartQuantity.innerHTML ++;
+			checkQuantity();
+
 		}, false);
 	}
 

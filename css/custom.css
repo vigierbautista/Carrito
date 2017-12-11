@@ -156,7 +156,7 @@ footer .disclaimer {
 
 #cart-quantity {
 	font-size: 10px;
-	background-color: #979797;
+	background-color: #38b033;
 	color: black;
 	position: absolute;
 	padding: 1px 0;
@@ -164,6 +164,24 @@ footer .disclaimer {
 	border-radius: 50%;
 	right: -3px;
 	bottom: -7px;
+}
+
+.add-btn {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+/****** MODAL ******/
+.modalw {
+	display: none;
+	position: fixed;
+	width: 100%;
 }
 
 

@@ -1,10 +1,10 @@
 /**
- * Objeto modelo de Cart.
+ * Objeto modelo de Carrito.
  * @type {{products: {}, total: number, add: Cart.add, remove: Cart.remove, update: Cart.update, clear: Cart.clear}}
  */
 var Cart = {
 	/**
-	 * Array de Objetos de producto.
+	 * Objeto de productos.
 	 */
 	products: {},
 
@@ -12,7 +12,6 @@ var Cart = {
 	 * Valor total del Cart.
 	 */
 	total: 0,
-
 
 	/**
 	 * Agrega un Producto al array products o si yá está agregado le agrega cantidad.
