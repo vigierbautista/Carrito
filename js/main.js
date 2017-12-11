@@ -61,14 +61,16 @@ function loadProducts(productsCont) {
 				price.appendChild(amount);
 				price.classList.add('product-price', 'center-text');
 
-				/*** BUY BUTTON ***/
+				/*** ADD BUTTON ***/
 				var addBtn = document.createElement('div');
 				var cartIcon = document.createElement('i');
 				var btnTxt = document.createTextNode('Agregar');
+
 				addBtn.appendChild(btnTxt);
 				addBtn.appendChild(cartIcon);
 				cartIcon.classList.add('glyphicon', 'glyphicon-shopping-cart');
 				addBtn.classList.add('add-btn');
+				addBtn.setAttribute('data-product', product.id);
 
 				prodBox.appendChild(img);
 				prodBox.appendChild(title);
@@ -135,7 +137,10 @@ window.addEventListener('DOMContentLoaded', function () {
 	var addProductBtn = document.querySelectorAll('.add-btn');
 	for (var i = 0; i < addProductBtn.length; i++) {
 		addProductBtn[i].addEventListener('click', function () {
-			addProductToCart(this);
+			var prodId = this.dataset.product;
+			var newProd = Product.create(prodId);
+			Cart.add(newProd);
+			console.log(Cart.products);
 		}, false);
 	}
 
@@ -143,7 +148,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	/************** CART BEHAVIOUR *******************************/
 
-	Cart.salute();
+
 
 	/** @type {Element} botón del carrito */
 	var cartBtn = document.getElementById('cart-btn');
