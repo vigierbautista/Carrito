@@ -86,7 +86,7 @@ var Cart = {
 	 * Elimina todos los productos del Cart.
 	 */
 	clear: function () {
-		this.products = [];
+		this.products = {};
 	}
 };
 
@@ -98,6 +98,7 @@ var Product = {
 	id: 0,
 	name: '',
 	img: '',
+	description: '',
 	price: 0,
 	create: function (id) {
 		if (!id) {

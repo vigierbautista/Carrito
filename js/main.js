@@ -1,3 +1,8 @@
+/** GLOBAL VARIABLES */
+
+var offerTimeOut;
+
+
 /**
  * Carga las categorías.
  * @param container donde insertar las categorías
@@ -85,6 +90,7 @@ function loadProducts(productsCont) {
 
 }
 
+
 /**
  * Oculta o muestra productos según la categoría filtrada
  * @param filter
@@ -104,41 +110,47 @@ function applyFilter(filter) {
 
 
 /**
- * Crea y Retorna un modelo de ventana modal.
- * @return {Element}
+ * Brinda comportamientos necesarios para cerrar el modal.
+ * @param modal
  */
-function createModal() {
+function closeModal(modal) {
+	// Cerramos el modal al apretar esc.
+	document.addEventListener('keydown', function (e) {
+		var exist = document.querySelectorAll('.modalw');
+		if (e.keyCode == 27 && exist.length > 0) {
+			remove('.modalw');
+			clearTimeout(offerTimeOut);
+		}
+	});
 
-	var modal = document.createElement('div');
-	modal.classList.add('modalw');
-	var content = document.createElement('div');
-	content.classList.add('modalw-content');
-	var header = document.createElement('div');
-	header.classList.add('modalw-header');
-	var title = document.createElement('h3');
-	title.classList.add('modalw-title');
-	var close = document.createElement('button');
-	close.classList.add('modalw-close');
-	var closeIcon = document.createElement('i');
-	closeIcon.classList.add('glyphicon', 'glyphicon-remove');
-	var body = document.createElement('div');
-	body.classList.add('modalw-body');
+	// Cerramos el modal al cliquear el botón.
+	var btn = modal.querySelector('.modalw-close');
+	btn.addEventListener('click', function () {
+		remove('.modalw');
+		clearTimeout(offerTimeOut);
+	}, false);
 
-	modal.appendChild(content);
-	content.appendChild(header);
-	content.appendChild(body);
-	header.appendChild(title);
-	header.appendChild(close);
-	close.appendChild(closeIcon);
-
-	return modal;
+	// Cerramos el modal cuando se cliquea fuera de el.
+	modal.addEventListener('click', function (e) {
+		if (e.target == modal) {
+			remove('.modalw');
+			clearTimeout(offerTimeOut);
+		}
+	}, false);
 }
 
+/**
+ * Muestra la promoción destacada en cada categoría.
+ * @param category
+ */
 function showOffer(category) {
+
+	// Si la categoría es todos, no hacemos nada.
+	if (category == 'all') return null;
 
 	// Buscamos la categoría y el producto
 	var products = data[category];
-	for	(var i = 0; i > products.length; i++) {
+	for	(var i = 0; i < products.length; i++) {
 		if (products[i].sale) {
 			var product = products[i];
 		}
@@ -146,32 +158,47 @@ function showOffer(category) {
 
 	// Obtenemos los elementos del modal base.
 	var modal = createModal();
-	var content = modal.querySelector('.modalw-body');
-	var title = modal.querySelector('modalw-title');
-	var body = modal.querySelector('modalw-body');
+	var title = modal.querySelector('.modalw-title');
+	var body = modal.querySelector('.modalw-body');
 
 	// Creamos los elementos de la oferta.
-	var titleText = document.createTextNode('Oferta Especial!');
-	var cont = document.createElement('div');
-	cont.classList.add('container');
-	var row = document.createElement('div');
-	row.classList.add('row');
-	var col1 = document.createElement('div');
-	col1.classList.add('col-md-4');
-	var col2= document.createElement('div');
-	col2.classList.add('col-md-8');
+	var titleText = document.createTextNode('Producto destacado!');
+	var figure = document.createElement('figure');
+	figure.classList.add('figure');
 	var image = document.createElement('img');
 	image.classList.add('img', 'center');
-	var src = 'images/products/'+ category + '/' + product.img;
+	var src = 'images/products/'+ category + '/sale/' + product.img;
 	image.setAttribute('src', src);
+	var prodInfo = document.createElement('div');
+	prodInfo.classList.add('info');
 	var prodName = document.createElement('h4');
 	prodName.classList.add('prod-name');
+	var nameText = document.createTextNode(product.name);
+	prodName.appendChild(nameText);
 	var prodPrice = document.createElement('p');
-	prodPrice.classList.add('prod-name');
+	prodPrice.classList.add('prod-price');
+	var priceText = document.createTextNode('$ ' + product.price);
+	prodPrice.appendChild(priceText);
+	var prodDesc = document.createElement('p');
+	prodDesc.classList.add('prod-desc');
+	var descText = document.createTextNode(product.description);
+	prodDesc.appendChild(descText);
 
+	title.appendChild(titleText);
+	body.appendChild(figure);
+	figure.appendChild(image);
+	body.appendChild(prodInfo);
+	prodInfo.appendChild(prodName);
+	prodInfo.appendChild(prodPrice);
+	prodInfo.appendChild(prodDesc);
 
-
+	closeModal(modal);
 	modal.style.display = 'block';
+
+	offerTimeOut = setTimeout(function () {
+		remove('.modalw');
+		clearTimeout(offerTimeOut);
+	}, 10000);
 }
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -190,6 +217,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	/************** CATEGORY SELECTION ***************************/
 
+
 	/** @type {Element} selector de categorías */
 	var categorySelector = document.getElementById('categories-container');
 
@@ -199,12 +227,6 @@ window.addEventListener('DOMContentLoaded', function () {
 		showOffer(selected.value);
 
 	}, false);
-
-
-
-	/************** MODAL BEHAVIOUR ******************************/
-
-
 
 
 
@@ -236,22 +258,33 @@ window.addEventListener('DOMContentLoaded', function () {
 	/** @type {Element} botón del carrito */
 	var cartBtn = document.getElementById('cart-btn');
 
+	/** @type {Node} contenedor del carrito */
+	var cartParent = cartBtn.parentNode;
+
 	/** @type {Element} icono del carrito */
 	var cartIcon = cartBtn.querySelector('.glyphicon');
 
-	/** @type {Element} cantidad del productos en el carrito */
-	var cartQuantity = document.getElementById('cart-quantity');
+	/** @type {Element} total de productos en el carrito */
+	var cartQuantity = document.createElement('span');
+	cartQuantity.setAttribute('id', 'cart-quantity');
+
+
+	/** @type {Element} precio total del carrito */
+	var cartTotal = document.createElement('span');
+	cartTotal.setAttribute('id', 'cart-total');
+	cartTotal.innerHTML = '0';
+
 
 	cartBtn.addEventListener('mouseover', function () {
 		this.style.borderColor = '#f5f5f5';
 		this.style.cursor = 'pointer';
 		cartIcon.style.color = '#f5f5f5';
-		cartQuantity.style.backgroundColor = '#f5f5f5';
+		cartQuantity.style.backgroundColor = '#44d63e';
 	}, false);
 	cartBtn.addEventListener('mouseout', function () {
 		this.style.borderColor = '#979797';
 		cartIcon.style.color = '#979797';
-		cartQuantity.style.backgroundColor = '#979797';
+		cartQuantity.style.backgroundColor = '#38b033';
 	}, false);
 
 	/**
@@ -261,8 +294,12 @@ window.addEventListener('DOMContentLoaded', function () {
 	function checkQuantity() {
 		if (cartQuantity.innerHTML > 0) {
 			cartQuantity.style.display = 'inline-block';
+			cartTotal.innerHTML = '$ ' + Cart.total;
+			cartParent.appendChild(cartTotal);
+			cartBtn.appendChild(cartQuantity);
 		} else {
-			cartQuantity.style.display = 'none';
+			cartParent.removeChild(cartTotal);
+			cartBtn.removeChild(cartQuantity);
 		}
 	}
 	checkQuantity();
