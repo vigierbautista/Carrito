@@ -1,0 +1,38 @@
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+	.modalw .modalw-content {
+		width: 90%;
+	}
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+	.modalw .modalw-content {
+		width: 90%;
+	}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+	.modalw .modalw-content {
+		width: 60%;
+	}
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+	.modalw .modalw-content {
+		width: 60%;
+	}
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1500px) {
+	.modalw .modalw-content {
+		width: 40%;
+	}
+}
+

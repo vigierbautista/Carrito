@@ -1,5 +1,5 @@
 /** GLOBAL VARIABLES */
-
+// Time out de la función que cierra el modal a los 10 segundos.
 var offerTimeOut;
 
 
@@ -96,7 +96,7 @@ function loadProducts(productsCont) {
  * @param filter
  */
 function applyFilter(filter) {
-	var products = document.querySelectorAll('.column');
+	var products = $('.column');
 
 	for	(var i = 0; i < products.length; i++) {
 
@@ -116,7 +116,7 @@ function applyFilter(filter) {
 function closeModal(modal) {
 	// Cerramos el modal al apretar esc.
 	document.addEventListener('keydown', function (e) {
-		var exist = document.querySelectorAll('.modalw');
+		var exist = $('.modalw');
 		if (e.keyCode == 27 && exist.length > 0) {
 			remove('.modalw');
 			clearTimeout(offerTimeOut);
@@ -124,7 +124,7 @@ function closeModal(modal) {
 	});
 
 	// Cerramos el modal al cliquear el botón.
-	var btn = modal.querySelector('.modalw-close');
+	var btn = $('.modalw-close');
 	btn.addEventListener('click', function () {
 		remove('.modalw');
 		clearTimeout(offerTimeOut);
@@ -201,16 +201,143 @@ function showOffer(category) {
 	}, 10000);
 }
 
+/**
+ * Crea Y agrega un item de producto a la lista del carrito.
+ * @param product
+ * @param content
+ */
+function addProductItem(product, content) {
+
+	// Product Item
+	var item = document.createElement('li');
+	item.classList.add('prod-item');
+	item.setAttribute('data-prod', product.id);
+
+	// Product Image
+	var prodImg = document.createElement('img');
+	var src = 'images/products/'+ product.category + '/thumbs/' + product.img;
+	prodImg.setAttribute('src', src);
+	prodImg.classList.add('prod-img', 'center');
+	
+	// Product Name
+	var prodName = document.createElement('span');
+	var prodNameText = document.createTextNode(product.name);
+	prodName.classList.add('prod-name');
+	prodName.appendChild(prodNameText);
+
+	// Product quantity
+	var prodOpt = document.createElement('div');
+	item.appendChild(prodOpt);
+	var plus = document.createElement('i');
+	plus.classList.add('glyphicon', 'glyphicon-plus');
+	var minus = document.createElement('i');
+	minus.classList.add('glyphicon', 'glyphicon-minus');
+	var quantity = document.createElement('span');
+	quantity.innerHTML = "x " + product.quantity;
+	quantity.classList.add('prod-quantity');
+	prodOpt.classList.add('prod-options');
+	prodOpt.appendChild(plus);
+	prodOpt.appendChild(minus);
+
+	// Product subtotal
+	var prodSub = document.createElement('span');
+	var subtotal = document.createTextNode("$ " + product.subtotal);
+	prodSub.classList.add('prod-subtotal');
+	prodSub.appendChild(subtotal);
+
+	// Product remove
+	var remove = document.createElement('i');
+	remove.classList.add('glyphicon', 'glyphicon-remove');
+	remove.setAttribute('data-remove', product.id);
+	
+	item.appendChild(prodImg);
+	item.appendChild(prodName);
+	item.appendChild(quantity);
+	item.appendChild(prodOpt);
+	item.appendChild(prodSub);
+	item.appendChild(remove);
+	content.appendChild(item);
+
+}
+
+/**
+ * Crea la ventana que muestra el resumen del carrito.
+ */
+function showCartModal() {
+
+	var cart = document.createElement('div');
+	cart.setAttribute('id', 'cart');
+	var content = document.createElement('ul');
+	content.setAttribute('id', 'cart-content');
+	cart.appendChild(content);
+
+	// Nos fijamos que el carrito no esté vacío.
+	if (isEmpty(Cart.products)) {
+		var msgText = document.createTextNode("El carrito está vacío!");
+		var msg = document.createElement('h3');
+		msg.appendChild(msgText);
+
+		var instructionText = document.createTextNode("Cliquee en el botón Agregar de cada producto para sumarlos al carrito.");
+		var instruction = document.createElement('p');
+		instruction.classList.add('msg');
+		instruction.appendChild(instructionText);
+
+		content.appendChild(msg);
+		content.appendChild(instruction);
+
+	} else {
+		for (var i in Cart.products) {
+			var product = Cart.products[i];
+			addProductItem(product, content);
+		}
+	}
+
+	//TODO Agregar botón de compra.
+
+	$('body').appendChild(cart);
+
+}
+
+/**
+ * Dado el id del producto agregado al carrito, lo agrega a la lista o actualiza sus valores si ya estaba agregado.
+ * @param id
+ */
+function updateCart(id) {
+	// Chequeamos si existe el carrito.
+	if ($('#cart')) {
+		// Chequeamos si la ventana está mostrando el mensaje de carrito vacío.
+		if ($('#cart .msg')) {
+			remove('#cart');
+			showCartModal();
+		} else {
+			// Si no, chequeamos si el producto está en la lista
+			var product	= Cart.products[id];
+			var item = $("[data-prod='"+ id +"']");
+			if (item) {
+				// Si existe le actualizamos los valores.
+				var itemQuantity = item.querySelector('.prod-quantity');
+				var itemSubtotal = item.querySelector('.prod-subtotal');
+				itemQuantity.innerHTML = "x " + product.quantity;
+				itemSubtotal.innerHTML = "$ " + product.subtotal;
+			} else {
+				// Si no, lo agregamos.
+				addProductItem(product, $('#cart-content'));
+			}
+
+		}
+	}
+}
+
 window.addEventListener('DOMContentLoaded', function () {
 
 	/************** LOAD CONTENT *********************************/
 
 	/** @type {Element} contenedor de categorías */
-	var categoriesCont = document.getElementById('filters');
+	var categoriesCont = $('#filters');
 	loadCategories(categoriesCont);
 
 	/** @type {Element} contenedor de productos */
-	var productsCont = document.getElementById('products-container');
+	var productsCont = $('#products-container');
 	loadProducts(productsCont);
 
 
@@ -219,7 +346,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 	/** @type {Element} selector de categorías */
-	var categorySelector = document.getElementById('categories-container');
+	var categorySelector = $('#categories-container');
 
 	categorySelector.addEventListener('change', function () {
 		var selected = this.options[this.selectedIndex];
@@ -234,7 +361,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	/************** PRODUCTS BEHAVIOUR ***************************/
 
 	/** @type {Object} botones de agregar al carrito */
-	var addProductBtn = document.querySelectorAll('.add-btn');
+	var addProductBtn = $('.add-btn');
 	for (var i = 0; i < addProductBtn.length; i++) {
 		addProductBtn[i].addEventListener('click', function () {
 			// Creamos el producto.
@@ -245,6 +372,7 @@ window.addEventListener('DOMContentLoaded', function () {
 			// Actualizamos la cantidad de productos en el icono del carrito.
 			cartQuantity.innerHTML ++;
 			checkQuantity();
+			updateCart(this.dataset.product);
 
 		}, false);
 	}
@@ -256,13 +384,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
 
 	/** @type {Element} botón del carrito */
-	var cartBtn = document.getElementById('cart-btn');
+	var cartBtn = $('#cart-btn');
 
 	/** @type {Node} contenedor del carrito */
 	var cartParent = cartBtn.parentNode;
 
 	/** @type {Element} icono del carrito */
-	var cartIcon = cartBtn.querySelector('.glyphicon');
+	var cartIcon = $('#cart-btn .glyphicon');
 
 	/** @type {Element} total de productos en el carrito */
 	var cartQuantity = document.createElement('span');
@@ -298,14 +426,20 @@ window.addEventListener('DOMContentLoaded', function () {
 			cartParent.appendChild(cartTotal);
 			cartBtn.appendChild(cartQuantity);
 		} else {
-			cartParent.removeChild(cartTotal);
-			cartBtn.removeChild(cartQuantity);
+			if (isChild(cartParent, cartTotal) && isChild(cartBtn, cartQuantity)) {
+				cartParent.removeChild(cartTotal);
+				cartBtn.removeChild(cartQuantity);
+			}
 		}
 	}
 	checkQuantity();
 
 	cartBtn.addEventListener('click', function () {
-		showCartModal();
+		if ($('#cart')) {
+			remove('#cart');
+		} else {
+			showCartModal();
+		}
 	}, false);
 
 }, false);

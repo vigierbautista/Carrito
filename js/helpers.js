@@ -1,6 +1,23 @@
+/**
+ * Función de búsqueda de elementos
+ * Versión simplificada de la función JQuery $()
+ * @param selector
+ * @return {*}
+ */
+function $(selector) {
+	var list = document.querySelectorAll(selector);
+	if (list.length > 1) {
+		return list;
+	} else if(list.length == 1) {
+		return document.querySelector(selector);
+	} else {
+		return null
+	}
+}
+
 
 /**
- * Crea y Retorna un modelo de ventana modal.
+ * Crea y retorna una ventana modal.
  * @return {Element}
  */
 function createModal() {
@@ -27,20 +44,49 @@ function createModal() {
 	header.appendChild(close);
 	close.appendChild(closeIcon);
 
-	var documentBody = document.querySelector('body');
+	var documentBody = $('body');
 	documentBody.appendChild(modal);
 
 	return modal;
 }
+
+
+/**
+ * Retorna los elementos dados son padre e hijo.
+ * @param parent
+ * @param child
+ * @return {boolean}
+ */
+function isChild(parent, child) {
+	var node = child.parentNode;
+	return node == parent;
+}
+
+
+/**
+ * Retorna si el objeto está vacío o no.
+ * @param obj
+ * @return {boolean}
+ */
+function isEmpty(obj) {
+	for(var prop in obj) {
+		if(obj.hasOwnProperty(prop))
+			return false;
+	}
+	return true;
+}
+
 
 /**
  * Elimina el elemento dado.
  * @param selector string
  */
 function remove(selector) {
-	var element = document.querySelector(selector);
-	if (element != undefined) {
+	var element = $(selector);
+	if (element) {
 		var parent = element.parentNode;
 		parent.removeChild(element);
+	} else {
+		console.error("ERROR: El elemento a eliminar no existe.")
 	}
 }

@@ -24,11 +24,13 @@ var Cart = {
 		if (!prodIndex) {
 			// Si no está, lo creamos.
 			prodObj = {
+				id: Product.id,
 				name: Product.name,
 				img: Product.img,
 				price: Product.price,
 				quantity: 1,
-				subtotal: Product.price
+				subtotal: Product.price,
+				category: Product.category
 			};
 			this.products[Product.id] = prodObj;
 
@@ -87,6 +89,7 @@ var Cart = {
 	 */
 	clear: function () {
 		this.products = {};
+		this.total = 0;
 	}
 };
 
@@ -99,6 +102,7 @@ var Product = {
 	name: '',
 	img: '',
 	description: '',
+	category: '',
 	price: 0,
 	create: function (id) {
 		if (!id) {
@@ -113,6 +117,7 @@ var Product = {
 						this.name = product.name;
 						this.img = product.img;
 						this.price = product.price;
+						this.category = category;
 					}
 				}
 			}

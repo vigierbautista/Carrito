@@ -2,12 +2,12 @@
 
 body {
 	background:
-			linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
-			linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
-			linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
-			linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
-			linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
-			linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+		linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+		linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+		linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+		linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+		linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+		linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
 	background-color: #131313;
 	background-size: 20px 20px;
 }
@@ -179,6 +179,107 @@ footer .disclaimer {
 	color: #979797;
 }
 
+#cart {
+	position: fixed;
+	width: 22%;
+	background-color: rgb(195, 195, 195);
+	top: 70px;
+	right: 68px;
+	z-index: 1000;
+	padding: 12px;
+	border-radius: 10px;
+	box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.45);
+}
+
+#cart #cart-content {
+	padding: 0;
+}
+
+#cart #cart-content h3 {
+	margin-top: 10px;
+}
+
+#cart #cart-content h3,
+#cart #cart-content .msg {
+	color: #444444;
+	text-align: center;
+}
+
+/****** CART ITEMS ******/
+.prod-item {
+	border-bottom: 1px solid grey;
+	padding: 10px 0;
+	list-style-type: none;
+	position: relative;
+}
+
+.prod-item .prod-img {
+	display: inline-block;
+	border-radius: 50%;
+	border: 2px solid grey;
+}
+
+.prod-item .prod-name {
+	color: #444444;
+	padding-left: 10px;
+	width: 40%;
+	display: inline-block;
+	font-size: 16px;
+	vertical-align: middle;
+}
+
+.prod-item:last-child {
+	border-bottom: none;
+}
+
+.prod-item .prod-options {
+	display: inline-block;
+	margin-left: 10px;
+	vertical-align: middle;
+
+}
+
+.prod-item .prod-options .glyphicon {
+	display: block;
+	color: #444444;
+}
+
+.prod-item .glyphicon:hover {
+	cursor: pointer;
+}
+
+.prod-item .prod-options .glyphicon-plus {
+	/*color: #38b033;*/
+}
+
+.prod-item .prod-options .glyphicon-minus {
+	padding-right: 2px;
+}
+
+.prod-item .glyphicon-remove {
+	position: absolute;
+	color: #444444;
+	top: 28px;
+	right: 2px;
+	font-size: 11px;
+}
+
+.prod-item .prod-quantity {
+	display: inline-block;
+	margin-left: 20px;
+	color: #444444;
+	font-size: 16px;
+}
+
+.prod-item .prod-subtotal {
+	display: inline-block;
+	margin-left: 20px;
+	color: #444444;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+
 
 /****** MODAL ******/
 .modalw {
@@ -197,7 +298,6 @@ footer .disclaimer {
 .modalw .modalw-title {
 	font-size: 30px;
 	margin-bottom: 20px;
-	border-bottom: 1px solid grey;
 	padding-bottom: 30px;
 	color: #444444;
 	font-weight: 700;
