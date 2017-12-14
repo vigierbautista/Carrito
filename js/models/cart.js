@@ -1,12 +1,8 @@
 /**
  * Objeto de modelo de carrito.
- * @type {{id: number, products: {}, total: number, date_created: string, create: Cart.create, add: Cart.add, remove: Cart.remove, delete: Cart.delete, update: Cart.update, clear: Cart.clear}}
+ * @type {{products: {}, total: number, add: Cart.add, remove: Cart.remove, delete: Cart.delete, update: Cart.update, clear: Cart.clear}}
  */
 var Cart = {
-	/**
-	 * Número identificador del carrito.
-	 */
-	id: 0,
 
 	/**
 	 * Objeto de productos.
@@ -17,23 +13,6 @@ var Cart = {
 	 * Valor total del Cart.
 	 */
 	total: 0,
-
-	/**
-	 * Fecha de creación del carrito.
-	 */
-	date_created: '',
-	
-	create: function () {
-
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1;
-		var yyyy = today.getFullYear();
-
-		this.date_created = mm + '/' + dd + '/' + yyyy;
-
-		this.id = Math.random() * (99999 - 1) + 1;
-	},
 
 	/**
 	 * Agrega un Producto al objeto products o si yá está agregado le agrega cantidad.
