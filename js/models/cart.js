@@ -1,8 +1,13 @@
 /**
- * Objeto modelo de Carrito.
- * @type {{products: {}, total: number, add: Cart.add, remove: Cart.remove, update: Cart.update, clear: Cart.clear}}
+ * Objeto de modelo de carrito.
+ * @type {{id: number, products: {}, total: number, date_created: string, create: Cart.create, add: Cart.add, remove: Cart.remove, delete: Cart.delete, update: Cart.update, clear: Cart.clear}}
  */
 var Cart = {
+	/**
+	 * Número identificador del carrito.
+	 */
+	id: 0,
+
 	/**
 	 * Objeto de productos.
 	 */
@@ -14,7 +19,24 @@ var Cart = {
 	total: 0,
 
 	/**
-	 * Agrega un Producto al array products o si yá está agregado le agrega cantidad.
+	 * Fecha de creación del carrito.
+	 */
+	date_created: '',
+	
+	create: function () {
+
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;
+		var yyyy = today.getFullYear();
+
+		this.date_created = mm + '/' + dd + '/' + yyyy;
+
+		this.id = Math.random() * (99999 - 1) + 1;
+	},
+
+	/**
+	 * Agrega un Producto al objeto products o si yá está agregado le agrega cantidad.
 	 * @param Product
 	 */
 	add: function (Product) {
@@ -41,12 +63,11 @@ var Cart = {
 			prodObj.subtotal += Product.price;
 		}
 
-
 		this.update('add', Product);
 	},
 
 	/**
-	 * Quita un producto del array products.
+	 * Quita un producto del objeto products.
 	 * @param Product
 	 */
 	remove: function (Product) {
@@ -60,10 +81,19 @@ var Cart = {
 		prodObj.subtotal -= Product.price;
 
 		if (prodObj.quantity < 1) {
-			this.products.splice(Product.id, 1);
+			delete this.products[Product.id];
 		}
 
 		this.update('remove', Product);
+	},
+
+	/**
+	 * Elimina un producto del objeto products
+	 * @param Product
+	 */
+	delete: function (Product) {
+		delete this.products[Product.id];
+		this.update('delete', Product);
 	},
 
 	/**
@@ -76,53 +106,30 @@ var Cart = {
 			case 'add':
 				this.total += Product.price;
 				break;
+
 			case 'remove':
 				this.total -= Product.price;
 				break;
+
+			case 'delete':
+				var total = 0;
+				for (var i in this.products) {
+					total += this.products[i].subtotal;
+				}
+				this.total = total;
+				break;
+
 			default:
 				break;
 		}
 	},
 
 	/**
-	 * Elimina todos los productos del Cart.
+	 * Resetea el Cart.
 	 */
 	clear: function () {
+		this.id = 0;
 		this.products = {};
 		this.total = 0;
-	}
-};
-
-/**
- *  Objeto modelo de Producto
- * @type {{id: number, name: string, img: string, price: number, create: Product.create}}
- */
-var Product = {
-	id: 0,
-	name: '',
-	img: '',
-	description: '',
-	category: '',
-	price: 0,
-	create: function (id) {
-		if (!id) {
-			console.error("ERROR: Falta el id del producto a crear.")
-		}
-		for (var category in data) {
-			for (var productData in data[category]) {
-				if (data[category].hasOwnProperty(productData)) {
-					var product = data[category][productData];
-					if (product.id == id) {
-						this.id = product.id;
-						this.name = product.name;
-						this.img = product.img;
-						this.price = product.price;
-						this.category = category;
-					}
-				}
-			}
-		}
-
-		return this;
 	}
 };

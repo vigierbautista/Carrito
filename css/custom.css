@@ -102,6 +102,7 @@ footer .disclaimer {
 	margin-bottom: 20px!important;
 	background-color: transparent;
 	min-height: 443px;
+	transition: all ease 0.3s;
 }
 
 .prod-box:hover {
@@ -129,8 +130,7 @@ footer .disclaimer {
 	-webkit-user-select: none; /* Safari */
 	-moz-user-select: none; /* Firefox */
 	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
 }
 
 .add-btn .glyphicon {
@@ -144,7 +144,7 @@ footer .disclaimer {
 }
 
 
-/****** CART ******/
+/****** CART BUTTON ******/
 
 #cart-btn {
 	margin-top: 20px;
@@ -156,9 +156,17 @@ footer .disclaimer {
 	position: relative;
 }
 
+#cart-btn.active {
+	border-color: #f5f5f5;
+}
+
 #cart-btn .glyphicon {
 	font-size: 17px;
 	color: #979797;
+}
+
+#cart-btn .glyphicon.active {
+	color: #f5f5f5;
 }
 
 #cart-quantity {
@@ -173,11 +181,18 @@ footer .disclaimer {
 	bottom: -7px;
 }
 
+#cart-quantity.active {
+	background-color: #44d63e;
+}
+
 #cart-total {
 	margin-left: 15px;
 	font-size: 20px;
 	color: #979797;
 }
+
+
+/****** CART ******/
 
 #cart {
 	position: fixed;
@@ -205,9 +220,33 @@ footer .disclaimer {
 	text-align: center;
 }
 
+#cart #buyBtn {
+	display: inline-block;
+	width: 33%;
+	margin: 1px 33%;
+	text-align: center;
+	padding: 5px;
+	background-color: #2f912a;
+	color: #ffffff;
+	border-radius: 25px;
+	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: none;
+}
+
+#cart #buyBtn:hover {
+	background-color: #41c63b;
+
+}
+
 /****** CART ITEMS ******/
 .prod-item {
-	border-bottom: 1px solid grey;
+	border-bottom: 1px solid rgba(156, 154, 156, 0.29);
 	padding: 10px 0;
 	list-style-type: none;
 	position: relative;
@@ -216,7 +255,7 @@ footer .disclaimer {
 .prod-item .prod-img {
 	display: inline-block;
 	border-radius: 50%;
-	border: 2px solid grey;
+	border: 2px solid #444444;
 }
 
 .prod-item .prod-name {
@@ -228,9 +267,6 @@ footer .disclaimer {
 	vertical-align: middle;
 }
 
-.prod-item:last-child {
-	border-bottom: none;
-}
 
 .prod-item .prod-options {
 	display: inline-block;
@@ -268,7 +304,7 @@ footer .disclaimer {
 	display: inline-block;
 	margin-left: 20px;
 	color: #444444;
-	font-size: 16px;
+	font-size: 12px;
 }
 
 .prod-item .prod-subtotal {

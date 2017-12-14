@@ -8,7 +8,7 @@ function $(selector) {
 	var list = document.querySelectorAll(selector);
 	if (list.length > 1) {
 		return list;
-	} else if(list.length == 1) {
+	} else if (list.length == 1) {
 		return document.querySelector(selector);
 	} else {
 		return null
@@ -33,7 +33,7 @@ function createModal() {
 	var close = document.createElement('button');
 	close.classList.add('modalw-close');
 	var closeIcon = document.createElement('i');
-	closeIcon.classList.add('glyphicon', 'glyphicon-remove');
+	closeIcon.classList.add('glyphicon', 'glyphicon-remove', 'bttn');
 	var body = document.createElement('div');
 	body.classList.add('modalw-body');
 
@@ -74,6 +74,21 @@ function isEmpty(obj) {
 			return false;
 	}
 	return true;
+}
+
+
+/**
+ * Retorna el length del objeto dado.
+ * @param obj
+ * @return {number}
+ */
+function objLength(obj) {
+	var length = 0;
+	for(var prop in obj) {
+		if(obj.hasOwnProperty(prop))
+			length ++;
+	}
+	return length;
 }
 
 

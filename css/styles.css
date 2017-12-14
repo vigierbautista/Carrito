@@ -31,3 +31,28 @@
 .padding0 {
 	padding: 0 !important;
 }
+
+.bttn {
+	transition: all ease 0.3s;
+}
+
+.bttn,
+.bttn:active,
+.bttn:focus,
+.bttn:visited,
+.bttn:hover {
+	outline: none;
+}
+
+.bttn:hover {
+	cursor: pointer;
+}
+
+.bttn:active {
+	box-shadow: inset -1px -1px 0 #676767;
+}
+
+i.bttn:active {
+	text-shadow:  -1px -1px 0 #676767;
+	box-shadow: none;
+}
