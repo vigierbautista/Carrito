@@ -16,40 +16,6 @@ function $(selector) {
 }
 
 
-/**
- * Crea y retorna una ventana modal.
- * @return {Element}
- */
-function createModal() {
-
-	var modal = document.createElement('div');
-	modal.classList.add('modalw');
-	var content = document.createElement('div');
-	content.classList.add('modalw-content');
-	var header = document.createElement('div');
-	header.classList.add('modalw-header');
-	var title = document.createElement('h3');
-	title.classList.add('modalw-title', 'center-text');
-	var close = document.createElement('button');
-	close.classList.add('modalw-close');
-	var closeIcon = document.createElement('i');
-	closeIcon.classList.add('glyphicon', 'glyphicon-remove', 'bttn');
-	var body = document.createElement('div');
-	body.classList.add('modalw-body');
-
-	modal.appendChild(content);
-	content.appendChild(header);
-	content.appendChild(body);
-	header.appendChild(title);
-	header.appendChild(close);
-	close.appendChild(closeIcon);
-
-	var documentBody = $('body');
-	documentBody.appendChild(modal);
-
-	return modal;
-}
-
 
 /**
  * Retorna los elementos dados son padre e hijo.
@@ -104,4 +70,24 @@ function remove(selector) {
 	} else {
 		console.error("ERROR: El elemento a eliminar no existe.")
 	}
+}
+
+/**
+ * Elimina los hijos del elemento.
+ */
+function empty(parent) {
+	while(parent.firstChild) {
+		parent.removeChild(parent.firstChild);
+	}
+	// No estoy seguro si esta variante está permitida.
+	// parent.innerHTML = '';
+}
+
+/**
+ * Capitaliza el string dado.
+ * @param string
+ * @return {string}
+ */
+function ucFirst(string) {
+	return string.substring(0, 1).toUpperCase() + string.slice(1);
 }

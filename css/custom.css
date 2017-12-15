@@ -214,7 +214,11 @@ footer .disclaimer {
 	margin-top: 10px;
 }
 
-#cart #cart-content h3,
+#cart #cart-content .msg-title {
+	font-size: 25px;
+}
+
+#cart #cart-content .msg-title,
 #cart #cart-content .msg {
 	color: #444444;
 	text-align: center;
@@ -231,11 +235,6 @@ footer .disclaimer {
 	border-radius: 25px;
 	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
 	font-size: 16px;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 	border: none;
 }
 
@@ -393,9 +392,163 @@ footer .disclaimer {
 
 /**************************** FORM ****************************/
 
+.checkout, .confirm {
+	margin-top: 150px !important;
+}
+
+#user-form {
+	width: 80%;
+	margin: 0 auto 30px auto;
+}
+
 #user-form label {
-	width: 40%;
+	width: 25%;
+	color: #444444;
+	text-align: right;
+	padding-right: 10px;
+}
+
+#user-form input,
+#user-form select {
+	width: 75%;
+	color: #444444;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+	padding: 5px;
+}
+
+#user-form select option {
 	color: #444444;
 }
 
+#user-form .input-group {
+	width: 100%;
+	margin-bottom: 10px;
+}
 
+#user-form .bttn {
+	margin-top: 30px;
+	margin-left: 75%;
+	display: inline-block;
+	text-align: center;
+	padding: 5px 20px;
+	background-color: #489ed7;
+	color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	border: none;
+}
+
+#user-form .bttn:hover {
+	background-color: #4eb1f0;
+}
+
+#user-form .bttn .glyphicon {
+	margin-left: 5px;
+}
+
+#user-form input.error,
+#user-form select.error {
+	border: 1px solid #c30000;
+}
+
+#user-form span.error {
+	display: inline-block;
+	color: #c30000;
+	font-size: 12px;
+	font-style: italic;
+	margin-left: 25%;
+}
+
+/**************************** DETAILS ****************************/
+
+#details {
+	padding-bottom: 50px;
+}
+
+#details,
+#pedido {
+	list-style-type: none;
+}
+
+#details li,
+#pedido li {
+	color: #444444;
+	font-size: 18px;
+	margin: 5px 0;
+}
+
+#details li span {
+	color: #444444;
+	font-weight: bold;
+	display: inline-block;
+	width: 17%;
+}
+
+#pedido li:last-child {
+	font-size: 18px;
+	border-top: 1px solid grey;
+	font-weight: bold;
+	width: 75%;
+}
+
+#pedido li:last-child .subtotal {
+	width: 50%;
+}
+
+#pedido li {
+	font-size: 16px;
+}
+
+#pedido .subtotal {
+	display: inline-block;
+	width: 25%;
+	text-align: right;
+}
+
+#pedido .name {
+	display: inline-block;
+	width: 49%;
+}
+
+.confirm-btn .glyphicon {
+	display: inline-block;
+	margin-left: 5px;
+}
+
+.back-btn .glyphicon {
+	display: inline-block;
+	margin-right: 5px;
+	color: #444444;
+}
+
+.confirm-btn,
+.back-btn {
+	display: inline-block;
+	text-align: center;
+	padding: 5px 20px;
+	border-radius: 5px;
+	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	border: none;
+}
+
+.back-btn {
+	margin-left: 60%;
+	margin-right: 5px;
+	color: #444444;
+}
+
+.back-btn:hover {
+	background-color: whitesmoke;
+}
+
+.confirm-btn {
+	background-color: #2f912a;
+}
+
+.confirm-btn:hover {
+	background-color: #41c63b;
+}
