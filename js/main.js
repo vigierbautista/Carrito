@@ -256,7 +256,7 @@ function decrease(Product) {
  */
 function erase(Product) {
 	Cart.delete(Product);
-	$('#cart-quantity').innerHTML = objLength(Cart.products);
+	$('#cart-quantity').innerHTML = Cart.quantity;
 	checkQuantity();
 	updateCart(Product.id);
 }

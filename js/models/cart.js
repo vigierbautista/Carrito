@@ -1,6 +1,6 @@
 /**
  * Objeto de modelo de carrito.
- * @type {{products: {}, total: number, add: Cart.add, remove: Cart.remove, delete: Cart.delete, update: Cart.update, clear: Cart.clear}}
+ * @type {{products: {}, total: number, quantity: number, add: Cart.add, remove: Cart.remove, delete: Cart.delete, update: Cart.update, clear: Cart.clear}}
  */
 var Cart = {
 
@@ -13,6 +13,11 @@ var Cart = {
 	 * Valor total del Cart.
 	 */
 	total: 0,
+
+    /**
+	 * Cantidad de productos en el Cart.
+     */
+	quantity: 0,
 
 	/**
 	 * Agrega un Producto al objeto products o si yá está agregado le agrega cantidad.
@@ -84,18 +89,17 @@ var Cart = {
 		switch (instance) {
 			case 'add':
 				this.total += Product.price;
+				this.quantity ++;
 				break;
 
 			case 'remove':
 				this.total -= Product.price;
+				this.quantity --;
 				break;
 
 			case 'delete':
-				var total = 0;
-				for (var i in this.products) {
-					total += this.products[i].subtotal;
-				}
-				this.total = total;
+				this.total -= Product.subtotal;
+				this.quantity -= Product.quantity;
 				break;
 
 			default:
