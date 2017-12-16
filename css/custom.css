@@ -433,7 +433,7 @@ footer .disclaimer {
 	display: inline-block;
 	text-align: center;
 	padding: 5px 20px;
-	background-color: #489ed7;
+	background-color: #2f912a;
 	color: #ffffff;
 	border-radius: 5px;
 	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
@@ -442,7 +442,7 @@ footer .disclaimer {
 }
 
 #user-form .bttn:hover {
-	background-color: #4eb1f0;
+	background-color: #41c63b;
 }
 
 #user-form .bttn .glyphicon {
@@ -551,4 +551,40 @@ footer .disclaimer {
 
 .confirm-btn:hover {
 	background-color: #41c63b;
+}
+
+/**************************** THANKS ****************************/
+
+
+.thanks .close-btn {
+	margin: 20px auto;
+	background-color: #444444;
+	color: white;
+	display: block;
+	text-align: center;
+	padding: 5px 20px;
+	border-radius: 5px;
+	box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	border: none;
+}
+
+.close-btn:hover {
+	background-color: #7a7a7a;
+}
+
+.thanks .glyphicon-ok-circle {
+	font-size: 140px;
+	color: #2f912a;
+	display: block;
+	width: 20%;
+	margin: 20px auto;
+}
+
+.thanks p {
+	text-align: center;
+	color: #444444;
+	width: 80%;
+	margin: 0 auto;
+	font-size: 18px;
 }

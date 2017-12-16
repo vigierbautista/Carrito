@@ -517,6 +517,18 @@ function cleanErrors() {
 }
 
 /**
+ * Completa los valores del formulario con los datos ya ingresados.
+ */
+function refill() {
+    for (var key in Order.data) {
+        if (key != 'payment' && key != 'cart') {
+            if (Order.data[key]== 'cart') continue;
+            $('#' + key).value = Order.data[key];
+        }
+    }
+}
+
+/**
  * Vuelve al paso anterior del formulario de datos.
  */
 function back() {
@@ -528,15 +540,44 @@ function back() {
 	body.appendChild(form);
 
 	// Completamos con los datos.
-	for (var key in Order.data) {
-		if (key != 'payment' && key != 'cart') {
-			if (Order.data[key]== 'cart') continue;
-			$('#' + key).value = Order.data[key];
-		}
-	}
+	refill();
 
 	// Comportamiento del submit.
 	submit(form);
+}
+
+function thanks() {
+	// Borramos el contenido anterior.
+    var content = $('.modalw-content');
+    content.classList.remove('confirm');
+    content.classList.add('thanks');
+    $('.modalw-title').innerHTML = "Gracias por su compra!";
+    var body = $('.modalw-body');
+    empty(body);
+
+    // Mostramos el mensaje de agradecimiento.
+	var successIcon = document.createElement('i');
+	successIcon.classList.add('glyphicon', 'glyphicon-ok-circle');
+	var msg = document.createElement('p');
+	var msgTxt = document.createTextNode('Su compra se realizó con éxito. En unos minutos recibirá un mail con los datos de la compra en ' + Order.data.email);
+    var closeBtn = document.createElement('button');
+    var closeTxt = document.createTextNode('Cerrar');
+    closeBtn.appendChild(closeTxt);
+    closeBtn.classList.add('close-btn', 'bttn');
+    closeBtn.addEventListener('click', function () {
+        remove('.modalw');
+        Cart.clear();
+        Order.reset();
+        var cartTotal = $('#cart-total');
+        var cartQuantity = $('#cart-quantity');
+        cartTotal.parentNode.removeChild(cartTotal);
+        cartQuantity.parentNode.removeChild(cartQuantity);
+    }, false);
+
+    body.appendChild(successIcon);
+    msg.appendChild(msgTxt);
+    body.appendChild(msg);
+    body.appendChild(closeBtn);
 }
 
 /**
@@ -656,9 +697,9 @@ function submit(form) {
 			payment: $('#payment').options[$('#payment').selectedIndex].innerHTML
 		};
 		var missing = checkMissing(data);
-		// TODO BORRAR BYPASS
-		missing = [];
-		// TODO BORRAR BYPASS
+		// // TODO BORRAR BYPASS
+		// missing = [];
+		// // TODO BORRAR BYPASS
 		if (missing.length) {
 			displayErrors(missing);
 
@@ -687,7 +728,7 @@ function checkout() {
 	// Formulario de datos de usuario.
 	var form = createForm();
 	$('.modalw-body').appendChild(form);
-
+	refill();
 	submit(form);
 }
 
@@ -815,7 +856,6 @@ function checkQuantity() {
 	}
 }
 
-//TODO hacer ventana de exito de compra.
 
 window.addEventListener('DOMContentLoaded', function () {
 
