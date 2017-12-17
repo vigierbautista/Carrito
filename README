@@ -1,0 +1,24 @@
+----- Browser Support
+
+Internet Explorer 11:
+  - Funciona correctamente pero no se visualizan algunos iconos de glyphicon.
+  - No reconoce el text-align: center;
+
+Safari Version 10:
+  - Funciona correctamente pero no se visualizan algunos iconos de glyphicon.
+  - No reconoce el text-align: center;
+
+Opera Version 46:
+  - Funciona correctamente.
+
+Edge:
+  - Funciona correctamente.
+
+FireFox Version 54 en adelante:
+  - Funciona correctamente.
+
+FireFox Quantum:
+  - Funciona correctamente.
+
+Google Chrome Versión 63.0.3239.84:
+  - Funciona correctamente.
