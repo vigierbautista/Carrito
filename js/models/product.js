@@ -22,6 +22,7 @@ var Product = {
 						this.name = product.name;
 						this.img = product.img;
 						this.price = product.price;
+						this.description = product.description;
 						this.category = category;
 					}
 				}

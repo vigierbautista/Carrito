@@ -183,9 +183,9 @@ function showOffer(category) {
 	}
 
 	// Obtenemos los elementos del modal base.
-	var modal = createModal();
-	var title = modal.querySelector('.modalw-title');
-	var body = modal.querySelector('.modalw-body');
+	createModal();
+	var title = $('.modalw-title');
+	var body = $('.modalw-body');
 
 	// Creamos los elementos de la oferta.
 	var titleText = document.createTextNode('Producto destacado!');
@@ -219,8 +219,6 @@ function showOffer(category) {
 	prodInfo.appendChild(prodPrice);
 	prodInfo.appendChild(prodDesc);
 
-
-	modal.style.display = 'block';
 
 	offerTimeOut = setTimeout(function () {
 		remove('.modalw');
@@ -546,6 +544,9 @@ function back() {
 	submit(form);
 }
 
+/**
+ * Muestra el mensaje de agradecimiento y finaliza la operación.
+ */
 function thanks() {
 	// Borramos el contenido anterior.
     var content = $('.modalw-content');
@@ -677,7 +678,6 @@ function showConfirmation(Order) {
 	body.appendChild(prevBtn);
 	body.appendChild(confirmBtn);
 }
-
 
 /**
  * Comportamiento del formulario al ser enviado.
@@ -857,6 +857,33 @@ function checkQuantity() {
 }
 
 
+function showProductModal(product) {
+	createModal();
+	$('.modalw-title').innerHTML = product.name;
+	var body = $('.modalw-body');
+
+    // Creamos los elementos del producto.
+    var figure = document.createElement('figure');
+    figure.classList.add('figure');
+    var image = document.createElement('img');
+    image.classList.add('img', 'center');
+    var src = 'images/products/'+ product.category + '/modal/' + product.img;
+    image.setAttribute('src', src);
+    image.setAttribute('alt', product.name);
+    var prodInfo = document.createElement('div');
+    prodInfo.classList.add('info');
+    var prodDesc = document.createElement('p');
+    prodDesc.classList.add('prod-desc');
+    var descText = document.createTextNode(product.description);
+    prodDesc.appendChild(descText);
+
+    body.appendChild(figure);
+    figure.appendChild(image);
+    body.appendChild(prodInfo);
+    prodInfo.appendChild(prodDesc);
+
+}
+
 window.addEventListener('DOMContentLoaded', function () {
 
 	/************** LOAD CONTENT *********************************/
@@ -904,6 +931,17 @@ window.addEventListener('DOMContentLoaded', function () {
 			checkQuantity();
 			updateCart(this.dataset.product);
 		}, false);
+	}
+
+	var prodBoxes = $('.prod-box');
+	for (var j = 0; j < prodBoxes.length; j++) {
+		prodBoxes[j].addEventListener('click', function (e) {
+			var addBtn = this.querySelector('.add-btn');
+			if (e.target != addBtn) {
+				var product = Product.create(addBtn.dataset.product);
+				showProductModal(product);
+			}
+        }, false)
 	}
 
 
