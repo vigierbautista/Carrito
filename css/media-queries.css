@@ -6,12 +6,24 @@
 	.modalw .modalw-content {
 		width: 90%;
 	}
+
+	#cart {
+		width: 100%;
+		top: 219px;
+		right: 0;
+	}
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
 	.modalw .modalw-content {
 		width: 90%;
+	}
+
+	#cart {
+		width: 65%;
+		top: 219px;
+		right: 0;
 	}
 }
 
@@ -20,12 +32,32 @@
 	.modalw .modalw-content {
 		width: 60%;
 	}
+
+	#cart {
+		width: 65%;
+		top: 219px;
+		right: 0;
+	}
+}
+/* Cart fix */
+@media only screen and (min-width : 990px) {
+	#cart {
+		width: 40%;
+		top: 72px;
+		right: 23px;
+	}
 }
 
 /* Medium Devices, Desktops */
-@media only screen and (min-width : 992px) {
+@media only screen and (min-width : 1080px) {
 	.modalw .modalw-content {
 		width: 60%;
+	}
+
+	#cart {
+		width: 35%;
+		top: 72px;
+		right: 23px;
 	}
 }
 
@@ -33,6 +65,13 @@
 @media only screen and (min-width : 1500px) {
 	.modalw .modalw-content {
 		width: 50%;
+	}
+
+
+	#cart {
+		width: 22%;
+		top: 70px;
+		right: 68px;
 	}
 }
 
