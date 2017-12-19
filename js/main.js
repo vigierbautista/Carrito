@@ -861,6 +861,8 @@ function showProductModal(product) {
 	createModal();
 	$('.modalw-title').innerHTML = product.name;
 	var body = $('.modalw-body');
+    $('.modalw-content').classList.add('prod-modal');
+
 
     // Creamos los elementos del producto.
     var figure = document.createElement('figure');
